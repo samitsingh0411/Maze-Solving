@@ -27,7 +27,7 @@ public: //variables
 public: //methods
 
 	makegrid(int n__);
-	void setpath(int i, int j);
+	std::tuple<int, int> setpath(int i, int j);
 	void putwall();
 	void display();
 
