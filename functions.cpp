@@ -268,4 +268,6 @@ void makegrid::display() {
 		}
 		std::cout << "\n";
 	}
+
+
 }
