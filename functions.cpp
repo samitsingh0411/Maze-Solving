@@ -40,7 +40,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords((i - 2), j);
 			grid[i][j].up = &grid[i - 2][j];
 			stack.push(temp_cords);
-			setpath(i - 2, j);
+			return setpath(i - 2, j);
 		}
 
 		//down
@@ -48,7 +48,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords((i + 2), j);
 			grid[i][j].down = &grid[i + 2][j];
 			stack.push(temp_cords);
-			setpath(i + 2, j);
+			return setpath(i + 2, j);
 		}
 
 		// right
@@ -56,7 +56,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords(i, j + 2);
 			grid[i][j].right = &grid[i][j + 2];
 			stack.push(temp_cords);
-			setpath(i, j + 2);
+			return setpath(i, j + 2);
 		}
 
 		//left
@@ -64,7 +64,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords(i, j - 2);
 			grid[i][j].left = &grid[i][j - 2];
 			stack.push(temp_cords);
-			setpath(i, j - 2);
+			return setpath(i, j - 2);
 		}
 
 		// implies it is boxed in
@@ -73,7 +73,7 @@ void makegrid :: setpath(int i, int j) {
 			int x = std::get<0>(cords);
 			int y = std::get<1>(cords);
 			stack.pop();
-			setpath(x, y);
+			return setpath(x, y);
 		}
 
 		else {
@@ -88,7 +88,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords((i + 2), j);
 			grid[i][j].down = &grid[i + 2][j];
 			stack.push(temp_cords);
-			setpath(i + 2, j);
+			return setpath(i + 2, j);
 		}
 
 		// up
@@ -96,7 +96,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords((i - 2), j);
 			grid[i][j].up = &grid[i - 2][j];
 			stack.push(temp_cords);
-			setpath(i - 2, j);
+			return setpath(i - 2, j);
 		}
 
 
@@ -105,7 +105,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords(i, j + 2);
 			grid[i][j].right = &grid[i][j + 2];
 			stack.push(temp_cords);
-			setpath(i, j + 2);
+			return setpath(i, j + 2);
 		}
 
 		//left
@@ -113,7 +113,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords(i, j - 2);
 			grid[i][j].left = &grid[i][j - 2];
 			stack.push(temp_cords);
-			setpath(i, j - 2);
+			return setpath(i, j - 2);
 		}
 
 		// implies it is boxed in
@@ -122,7 +122,7 @@ void makegrid :: setpath(int i, int j) {
 			int x = std::get<0>(cords);
 			int y = std::get<1>(cords);
 			stack.pop();
-			setpath(x, y);
+			return setpath(x, y);
 		}
 
 		else {
@@ -138,7 +138,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords(i, j + 2);
 			grid[i][j].right = &grid[i][j + 2];
 			stack.push(temp_cords);
-			setpath(i, j + 2);
+			return setpath(i, j + 2);
 		}
 
 		// up
@@ -146,7 +146,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords((i - 2), j);
 			grid[i][j].up = &grid[i - 2][j];
 			stack.push(temp_cords);
-			setpath(i - 2, j);
+			return setpath(i - 2, j);
 		}
 
 		//down
@@ -154,7 +154,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords((i + 2), j);
 			grid[i][j].down = &grid[i + 2][j];
 			stack.push(temp_cords);
-			setpath(i + 2, j);
+			return setpath(i + 2, j);
 		}
 
 
@@ -163,7 +163,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords(i, j - 2);
 			grid[i][j].left = &grid[i][j - 2];
 			stack.push(temp_cords);
-			setpath(i, j - 2);
+			return setpath(i, j - 2);
 		}
 
 		// implies it is boxed in
@@ -172,7 +172,7 @@ void makegrid :: setpath(int i, int j) {
 			int x = std::get<0>(cords);
 			int y = std::get<1>(cords);
 			stack.pop();
-			setpath(x, y);
+			return setpath(x, y);
 		}
 
 		else {
@@ -187,7 +187,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords(i, j - 2);
 			grid[i][j].left = &grid[i][j - 2];
 			stack.push(temp_cords);
-			setpath(i, j - 2);
+			return setpath(i, j - 2);
 		}
 
 		// up
@@ -195,7 +195,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords((i - 2), j);
 			grid[i][j].up = &grid[i - 2][j];
 			stack.push(temp_cords);
-			setpath(i - 2, j);
+			return setpath(i - 2, j);
 		}
 
 		//down
@@ -203,7 +203,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords((i + 2), j);
 			grid[i][j].down = &grid[i + 2][j];
 			stack.push(temp_cords);
-			setpath(i + 2, j);
+			return setpath(i + 2, j);
 		}
 
 		// right
@@ -211,7 +211,7 @@ void makegrid :: setpath(int i, int j) {
 			std::tuple<int, int> temp_cords(i, j + 2);
 			grid[i][j].right = &grid[i][j + 2];
 			stack.push(temp_cords);
-			setpath(i, j - 2);
+			return setpath(i, j - 2);
 		}
 
 		// implies it is boxed in
@@ -220,7 +220,7 @@ void makegrid :: setpath(int i, int j) {
 			int x = std::get<0>(cords);
 			int y = std::get<1>(cords);
 			stack.pop();
-			setpath(x, y);
+			return setpath(x, y);
 		}
 
 		else {
