@@ -2,6 +2,7 @@
 #include <tuple>
 #include "functions.h"
 
+
 cell :: cell() : up(nullptr), down(nullptr), right(nullptr), left(nullptr), state(wall), visited(false){}
 
 makegrid :: makegrid(int n__) : n(n__) {
@@ -27,75 +28,76 @@ makegrid :: makegrid(int n__) : n(n__) {
 
 }
 
-std::tuple<int, int> makegrid :: setpath(int i, int j) {
-	static std::stack<std::tuple<int, int>> stack;
+static std::stack<cords> stack;
+
+ cords makegrid :: setpath(int i, int j) {
 	grid[i][j].visited = true;
-	
 	int choice = rand() % 4;
 
 	// check up first
 	if (choice == 0) {
 		// up
 		if (i >= 2 and !grid[i - 2][j].visited) {
-			std::tuple<int, int> temp_cords((i - 2), j);
-			grid[i][j].up = &grid[i - 2][j];
+			cords temp_cords(i - 2, j);
+			grid[i][j].up = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
 		}
 
 		//down
 		else if (i <= (n - 1) - 2 and !grid[i + 2][j].visited) {
-			std::tuple<int, int> temp_cords((i + 2), j);
-			grid[i][j].down = &grid[i + 2][j];
+			cords temp_cords(i + 2, j);
+			grid[i][j].down = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
+			
 		}
 
 		// right
 		else if (j <= (n -  1) - 2 and !grid[i][j + 2].visited) {
-			std::tuple<int, int> temp_cords(i, j + 2);
-			grid[i][j].right = &grid[i][j + 2];
+			cords temp_cords(i, j + 2);
+			grid[i][j].right = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
+			
 		}
 
 		//left
 		else if (j >= 2 and !grid[i][j - 2].visited) {
-			std::tuple<int, int> temp_cords(i, j - 2);
-			grid[i][j].left = &grid[i][j - 2];
+			cords temp_cords(i, j - 2);
+			grid[i][j].left = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
+			
 		}
 
 		// implies it is boxed in
 		else if (!stack.empty()) {
-			auto cords = stack.top();
-			int x = std::get<0>(cords);
-			int y = std::get<1>(cords);
-			std::tuple<int, int> temp_cords(x, y);
+			cords temp_cords(stack.top().i, stack.top().j);
 			stack.pop();
 			return temp_cords;
 		}
 
 		else {
-			return;
+			return cords(-7, -7);
 		}
 	}
 
 	//chekc down first
 	if (choice == 1) {
+
 		//down
 		if (i <= (n - 1) - 2 and !grid[i + 2][j].visited) {
-			std::tuple<int, int> temp_cords((i + 2), j);
-			grid[i][j].down = &grid[i + 2][j];
+			cords temp_cords(i + 2, j);
+			grid[i][j].down = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
 		}
 
 		// up
 		else if (i >= 2 and !grid[i - 2][j].visited) {
-			std::tuple<int, int> temp_cords((i - 2), j);
-			grid[i][j].up = &grid[i - 2][j];
+			cords temp_cords(i - 2, j);
+			grid[i][j].up = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
 		}
@@ -103,32 +105,29 @@ std::tuple<int, int> makegrid :: setpath(int i, int j) {
 
 		// right
 		else if (j <= (n - 1) - 2 and !grid[i][j + 2].visited) {
-			std::tuple<int, int> temp_cords(i, j + 2);
-			grid[i][j].right = &grid[i][j + 2];
+			cords temp_cords(i, j + 2);
+			grid[i][j].right = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
 		}
 
 		//left
 		else if (j >= 2 and !grid[i][j - 2].visited) {
-			std::tuple<int, int> temp_cords(i, j - 2);
-			grid[i][j].left = &grid[i][j - 2];
+			cords temp_cords(i, j - 2);
+			grid[i][j].left = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
 		}
 
 		// implies it is boxed in
 		else if (!stack.empty()) {
-			auto cords = stack.top();
-			int x = std::get<0>(cords);
-			int y = std::get<1>(cords);
-			std::tuple<int, int> temp_cords(x, y);
+			cords temp_cords(stack.top().i, stack.top().j);
 			stack.pop();
 			return temp_cords;
 		}
 
 		else {
-			return;
+			return cords(-7, -7);
 		}
 	}
 
@@ -137,101 +136,102 @@ std::tuple<int, int> makegrid :: setpath(int i, int j) {
 
 		// right
 		if (j <= (n - 1) - 2 and !grid[i][j + 2].visited) {
-			std::tuple<int, int> temp_cords(i, j + 2);
-			grid[i][j].right = &grid[i][j + 2];
+			cords temp_cords(i, j + 2);
+			grid[i][j].right = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
+
 		}
 
 		// up
 		else if (i >= 2 and !grid[i - 2][j].visited) {
-			std::tuple<int, int> temp_cords((i - 2), j);
-			grid[i][j].up = &grid[i - 2][j];
+			cords temp_cords(i - 2, j);
+			grid[i][j].up = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
 		}
 
 		//down
 		else if (i <= (n - 1) - 2 and !grid[i + 2][j].visited) {
-			std::tuple<int, int> temp_cords((i + 2), j);
-			grid[i][j].down = &grid[i + 2][j];
+			cords temp_cords(i + 2, j);
+			grid[i][j].down = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
+
 		}
 
 
 		//left
 		else if (j >= 2 and !grid[i][j - 2].visited) {
-			std::tuple<int, int> temp_cords(i, j - 2);
-			grid[i][j].left = &grid[i][j - 2];
+			cords temp_cords(i, j - 2);
+			grid[i][j].left = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
+
 		}
 
 		// implies it is boxed in
 		else if (!stack.empty()) {
-			auto cords = stack.top();
-			int x = std::get<0>(cords);
-			int y = std::get<1>(cords);
-			std::tuple<int, int> temp_cords(x, y);
+			cords temp_cords(stack.top().i, stack.top().j);
 			stack.pop();
 			return temp_cords;
 		}
 
 		else {
-			return;
+			return cords(-7, -7);
 		}
 	}
 
 	// check left first
 	if (choice == 3) {
+
 		//left
 		if (j >= 2 and !grid[i][j - 2].visited) {
-			std::tuple<int, int> temp_cords(i, j - 2);
-			grid[i][j].left = &grid[i][j - 2];
+			cords temp_cords(i, j - 2);
+			grid[i][j].left = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
+
 		}
 
 		// up
 		else if (i >= 2 and !grid[i - 2][j].visited) {
-			std::tuple<int, int> temp_cords((i - 2), j);
-			grid[i][j].up = &grid[i - 2][j];
+			cords temp_cords(i - 2, j);
+			grid[i][j].up = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
 		}
 
 		//down
 		else if (i <= (n - 1) - 2 and !grid[i + 2][j].visited) {
-			std::tuple<int, int> temp_cords((i + 2), j);
-			grid[i][j].down = &grid[i + 2][j];
+			cords temp_cords(i + 2, j);
+			grid[i][j].down = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
+
 		}
 
 		// right
 		else if (j <= (n - 1) - 2 and !grid[i][j + 2].visited) {
-			std::tuple<int, int> temp_cords(i, j + 2);
-			grid[i][j].right = &grid[i][j + 2];
+			cords temp_cords(i, j + 2);
+			grid[i][j].right = &grid[temp_cords.i][temp_cords.j];
 			stack.push(temp_cords);
 			return temp_cords;
+
 		}
+
 
 		// implies it is boxed in
 		else if (!stack.empty()) {
-			auto cords = stack.top();
-			int x = std::get<0>(cords);
-			int y = std::get<1>(cords);
-			std::tuple<int, int> temp_cords(x, y);
+			cords temp_cords(stack.top().i, stack.top().j);
 			stack.pop();
 			return temp_cords;
 		}
 
 		else {
-			return;
+			return cords(-7, -7);
 		}
 	}
-
 }
 
 void makegrid::putwall() {

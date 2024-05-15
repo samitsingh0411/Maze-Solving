@@ -2,6 +2,13 @@
 
 enum state{freepath, wall};
 
+struct cords {
+	int i;
+	int j;
+
+	cords(int i, int j) : i(i), j(j){}
+};
+
 class cell {
 public:
 	cell* up;
@@ -27,7 +34,7 @@ public: //variables
 public: //methods
 
 	makegrid(int n__);
-	std::tuple<int, int> setpath(int i, int j);
+	cords setpath(int i, int j);
 	void putwall();
 	void display();
 
