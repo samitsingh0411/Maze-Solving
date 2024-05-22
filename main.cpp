@@ -1,7 +1,7 @@
 #include "functions.h"
 
 int main() {
-	makegrid maze(50);
+	makegrid maze(30);
 
 	int i = 0;
 	int j = 0;
@@ -12,10 +12,17 @@ int main() {
 		j = temp_cords.j;
 	}
 
-	maze.putwall();
+	for (int i = 0; i < maze.n; i += 2) {
+		for (int j = 0; j < maze.n; j += 2) {
+			maze.putwall(i, j);
+		}
+	}
+
 
 	maze.grid[0][2].state = freepath;
 	maze.grid[maze.n - 1][maze.n - 2].state = freepath;
 
 	maze.display();
+
+
 }

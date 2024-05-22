@@ -35,7 +35,10 @@ public: //methods
 
 	makegrid(int n__);
 	cords setpath(int i, int j);
-	void putwall();
+	void putwall(int i, int j);
 	void display();
 
 };
+
+void sleep_for(int milisecond);
+void clear_console();

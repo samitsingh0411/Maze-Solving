@@ -1,5 +1,6 @@
 #include <stack>
 #include <tuple>
+#include <thread>
 #include "functions.h"
 
 
@@ -234,40 +235,51 @@ static std::stack<cords> stack;
 	}
 }
 
-void makegrid::putwall() {
-	for (int i = 0; i < n; i += 2) {
-		for (int j = 0; j < n; j += 2) {
-			if (grid[i][j].up != nullptr) {
-				grid[i - 1][j].state = freepath;
-			}
+void makegrid::putwall(int i, int j) {
 
-			if (grid[i][j].down != nullptr) {
-				grid[i + 1][j].state = freepath;
-			}
-
-			if (grid[i][j].left != nullptr) {
-				grid[i][j - 1].state = freepath;
-			}
-
-			if (grid[i][j].right != nullptr) {
-				grid[i][j + 1].state = freepath;
-			}
+		if (grid[i][j].up != nullptr) {
+			grid[i - 1][j].state = freepath;
+			grid[i][j].up = nullptr;
 		}
-	}
+
+		if (grid[i][j].down != nullptr) {
+			grid[i + 1][j].state = freepath;
+			grid[i][j].down = nullptr;
+		}
+
+		if (grid[i][j].left != nullptr) {
+			grid[i][j - 1].state = freepath;
+			grid[i][j].left = nullptr;
+		}
+
+		if (grid[i][j].right != nullptr) {
+			grid[i][j + 1].state = freepath;
+			grid[i][j].right = nullptr;
+		}
+	
+	
 }
 
 void makegrid::display() {
 	for (int i = 0; i < n; i ++) {
 		for (int j = 0; j < n; j++) {
 			if (grid[i][j].state == wall)
-				std::cout << "& ";
+				std::cout << "H ";
 
 			else
-				std::cout << ". ";
+				std::cout << "  ";
 
 		}
 		std::cout << "\n";
 	}
 
 
+}
+
+void sleep_for(int milisecond) {
+	std::this_thread::sleep_for(std::chrono::milliseconds(milisecond));
+}
+
+void clear_console() {
+	system("cls");
 }
